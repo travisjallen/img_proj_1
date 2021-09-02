@@ -6,7 +6,6 @@
 #################################
 
 # import necessary libraries
-from ctypes import BigEndianStructure
 import numpy as np
 import matplotlib.pyplot as plt
 import skimage as sk
@@ -54,7 +53,7 @@ grey_img = color2grey(img)
 # can help with this. 
 
 # define function to make a histogram from a greyscale image
-def grey2hist(img,num_bins,plot):
+def grey2hist(img,num_bins,plot,filename):
     # determine the size of the image
     image_size = img.shape
     num_rows = image_size[0]
@@ -88,13 +87,15 @@ def grey2hist(img,num_bins,plot):
     n, bins, patches = plt.hist(vals, num_bins, density=True, facecolor='g', alpha=0.75)
     if plot == 1:
         plt.title('Histogram')
+        plt.savefig(filename, dpi=150)
         plt.show()
+        
     
     # return the bins and counts of the histogram from our calculation
     return hist
 
 # read greyscale image
-gimg = io.imread("grey_cow.png", plugin='matplotlib')
+# gimg = io.imread("grey_cow.png", plugin='matplotlib')
 
 # call histogram function, specify plot = 1 to show histogram
 # hist = grey2hist(gimg,10,1)
@@ -112,9 +113,9 @@ gimg = io.imread("grey_cow.png", plugin='matplotlib')
 # images of different types (photos, medical, etc.).
 
 # define histogram equaliztion function
-def hist_eq(img,num_bins):
+def hist_eq(img,num_bins,filename):
     # make histogram of image with function from above
-    hist = grey2hist(img,num_bins,0)
+    hist = grey2hist(img,num_bins,0,filename)
 
     # find shape of image
     im_size = img.shape
@@ -131,14 +132,20 @@ def hist_eq(img,num_bins):
     for i in range(num_bins):
         prob[i] = hist[i,1]/MN
 
-    # create array to store transformed intensities, called s
-    s = np.array((num_bins,1))
+    print("Shape of prob: ")
+    print(prob.shape)
 
+    # create array to store transformed intensities, called s
+    s = np.zeros((num_bins,1))
+
+    print("Shape of s: ")
+    print(s.shape)
+    
     # calculate transformed intensities, store in s
     for j in range(num_bins):
         for k in range(j):
-            print(j)
-            s[j] += num_bins*prob[k]
+            # print(j)
+            s[j] += num_bins*prob[k,0]
 
     # replace existing intensities with appropriate new intensities
     for j in range(num_rows):
@@ -146,11 +153,30 @@ def hist_eq(img,num_bins):
             for i in range(num_bins-1):
                 # check intensity at (i,j), compare to bin limits
                 if (img[j,k] > hist[i,0]) and (img[j,k] < hist[i+1,0]):
-                    img[j,k] = s[i]
+                    img[j,k] = s[i,0]
 
-    plt.figure 
-    plt.imshow(img)
-    plt.show()
-    return
+    return img
 
-hist_eq(gimg,10)
+# read the original image
+img = io.imread("cow.png")
+
+# transform image with user defined function
+grey_img = color2grey(img)
+
+# save the new image
+io.imsave("grey_cow.png",grey_img)
+
+# read the new image
+gimg = io.imread("grey_cow.png")
+
+# build histogram with new grey image
+g_hist = grey2hist(gimg,15,1,'grey_cow_hist.png')
+
+# perform histogram equalization
+HE_gimg = hist_eq(gimg,10,'o_hist.png')
+
+# save the image
+io.imsave("HE_grey_cow.png",img)
+
+# make histograms of new image
+HE_g_hist = grey2hist(HE_gimg,15,1,'HE_grey_cow_hist.png')
