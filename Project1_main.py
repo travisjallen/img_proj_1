@@ -33,10 +33,10 @@ ridge = io.imread("ridgeline.jpg")
 legacy = io.imread("legacy_bridge.jpg")
 
 # transform image with user defined function
-# grey_cow = color2grey(cow)
+grey_cow = color2grey(cow)
 grey_grandview = color2grey(grandview)
-# grey_ridge = color2grey(ridge)
-# grey_legacy = color2grey(legacy)
+grey_ridge = color2grey(ridge)
+grey_legacy = color2grey(legacy)
 
 # save images as .png
 # io.imsave("grey_cow.png",grey_cow)
@@ -45,17 +45,26 @@ grey_grandview = color2grey(grandview)
 # io.imsave("grey_legacy.png",grey_legacy)
 
 # Display the images to the user - note that values are float64 not uint8
-# fig, (ax0,ax1,ax2,ax3) = plt.subplots(nrows=1,ncols=4)
-# ax0.imshow(cow)
-# ax1.imshow(grandview)
-# ax2.imshow(ridge)
-# ax3.imshow(legacy)
-# ax0.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-# ax1.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-# ax2.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-# ax3.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-# plt.show()
+# plt.figure(figsize=(12, 4))
+# plt.subplot(141)
+# plt.imshow(cow)
+# plt.axis('off')
+
+# plt.subplot(142)
+# plt.imshow(grandview)
+# plt.axis('off')
+
+# plt.subplot(143)
+# plt.imshow(ridge)
+# plt.axis('off')
+
+# plt.subplot(144)
+# plt.imshow(legacy)
+# plt.axis('off')
+
+# plt.tight_layout()
 # plt.savefig('original_images.png')
+# plt.show()
 
 #######################################################################
 # 2: Build a histogram:  Write a function (from scratch, 
@@ -111,8 +120,20 @@ def grey2hist(img,num_bins,plot,title,filename):
 
     # now print and show a histogram of the image if asked for
     if plot == 1:
+        # make figure
+        plt.figure(figsize=(6, 4))
+        
+        # plot image next to histogram
+        plt.subplot(121)
+        plt.imshow(img,cmap='gray')
+        plt.title('Greyscale Image')
+        plt.axis('off')
+
+        plt.subplot(122)
         plt.bar(hist[:,0],hist[:,1],width=width,align='edge')
         plt.title(title)
+
+        plt.tight_layout()
         plt.savefig(filename, dpi=150)
         plt.show()
         
@@ -124,7 +145,7 @@ def grey2hist(img,num_bins,plot,title,filename):
 # gimg = io.imread("grey_cow.png", plugin='matplotlib')
 
 # call histogram function, specify plot = 1 to show histogram
-# hist_cow = grey2hist(gimg,25,1,'Histogram of Grey Cow','grey_cow_hist.png')
+hist_cow = grey2hist(grey_cow,25,1,'Histogram of Grey Cow','grey_cow_hist.png')
 # hist_grand = grey2hist(grey_grandview,25,1,'Histogram of Cottonwood Gulch','grandview_hist.png')
 # hist_legacy = grey2hist(grey_legacy,25,1,'Histogram of Legacy Bridge','legacy_hist.png')
 # hist_ridge = grey2hist(grey_ridge,25,1,'Histogram of Ridgeline','ridge_hist.png')
@@ -167,7 +188,7 @@ def threshold(grey_img,delimiter):
     return grey_img
 
 # thresh_cow = threshold(grey_cow,0.5)
-thresh_grandview = threshold(grey_grandview,0.5)
+# thresh_grandview = threshold(grey_grandview,0.5)
 # thresh_ridge = threshold(grey_ridge,0.5)
 # thresh_legacy = threshold(grey_legacy,0.5)
 
@@ -181,36 +202,24 @@ thresh_grandview = threshold(grey_grandview,0.5)
 # import necessary tools
 from skimage import measure
 
-# define components as parts of the image that have intensity
-# greater than 0.5
-components = grey_grandview>0.5
+# # give labels to each conected component in the thresholded image
+# connected_components = measure.label(thresh_grandview)
 
-# give labels to each conected component
-labels = measure.label(components)
+# # show results side by side
+# plt.figure(figsize=(6, 3.5))
 
-# What does this do?
-components_labels = measure.label(components,background=0)
+# # first show just the thresholded image
+# plt.subplot(121)
+# plt.imshow(grey_grandview, cmap='gray')
+# plt.axis('off')
 
-# show results side by side
-plt.figure(figsize=(9, 3.5))
+# # then show the connected components
+# plt.subplot(122)
+# plt.imshow(connected_components, cmap='nipy_spectral')
+# plt.axis('off')
 
-# first show just the connected components
-plt.subplot(131)
-plt.imshow(components, cmap='gray')
-plt.axis('off')
-
-# then show the labels
-plt.subplot(132)
-plt.imshow(labels, cmap='nipy_spectral')
-plt.axis('off')
-
-# then show the connected components labels
-plt.subplot(133)
-plt.imshow(components_labels, cmap='nipy_spectral')
-plt.axis('off')
-
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
 #######################################################################
 # 4. Histogram equalization:  Perform histogram equalization on a 
