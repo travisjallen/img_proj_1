@@ -34,7 +34,7 @@ legacy = io.imread("legacy_bridge.jpg")
 
 # transform image with user defined function
 # grey_cow = color2grey(cow)
-# grey_grandview = color2grey(grandview)
+grey_grandview = color2grey(grandview)
 # grey_ridge = color2grey(ridge)
 # grey_legacy = color2grey(legacy)
 
@@ -45,17 +45,17 @@ legacy = io.imread("legacy_bridge.jpg")
 # io.imsave("grey_legacy.png",grey_legacy)
 
 # Display the images to the user - note that values are float64 not uint8
-fig, (ax0,ax1,ax2,ax3) = plt.subplots(nrows=1,ncols=4)
-ax0.imshow(cow)
-ax1.imshow(grandview)
-ax2.imshow(ridge)
-ax3.imshow(legacy)
-ax0.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-ax1.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-ax2.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-ax3.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
-plt.show()
-plt.savefig('original_images.png')
+# fig, (ax0,ax1,ax2,ax3) = plt.subplots(nrows=1,ncols=4)
+# ax0.imshow(cow)
+# ax1.imshow(grandview)
+# ax2.imshow(ridge)
+# ax3.imshow(legacy)
+# ax0.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
+# ax1.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
+# ax2.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
+# ax3.tick_params(left=False,bottom=False,labelleft=False,labelbottom=False)
+# plt.show()
+# plt.savefig('original_images.png')
 
 #######################################################################
 # 2: Build a histogram:  Write a function (from scratch, 
@@ -167,7 +167,7 @@ def threshold(grey_img,delimiter):
     return grey_img
 
 # thresh_cow = threshold(grey_cow,0.5)
-# thresh_grandview = threshold(grey_grandview,0.5)
+thresh_grandview = threshold(grey_grandview,0.5)
 # thresh_ridge = threshold(grey_ridge,0.5)
 # thresh_legacy = threshold(grey_legacy,0.5)
 
@@ -175,6 +175,42 @@ def threshold(grey_img,delimiter):
 # io.imsave("thresh_grandview.png",thresh_grandview)
 # io.imsave("thresh_ridge.png",thresh_ridge)
 # io.imsave("thresh_legacy.png",thresh_legacy)
+
+# now perform connected component analysis
+
+# import necessary tools
+from skimage import measure
+
+# define components as parts of the image that have intensity
+# greater than 0.5
+components = grey_grandview>0.5
+
+# give labels to each conected component
+labels = measure.label(components)
+
+# What does this do?
+components_labels = measure.label(components,background=0)
+
+# show results side by side
+plt.figure(figsize=(9, 3.5))
+
+# first show just the connected components
+plt.subplot(131)
+plt.imshow(components, cmap='gray')
+plt.axis('off')
+
+# then show the labels
+plt.subplot(132)
+plt.imshow(labels, cmap='nipy_spectral')
+plt.axis('off')
+
+# then show the connected components labels
+plt.subplot(133)
+plt.imshow(components_labels, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
 
 #######################################################################
 # 4. Histogram equalization:  Perform histogram equalization on a 
