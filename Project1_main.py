@@ -198,7 +198,7 @@ def threshold(grey_img,delimiter):
 
 # print(thresh_cow_25_h)
 
-# plt.figure(figsize=(18, 4))
+# plt.figure(figsize=(8, 5))
         
 # plt.subplot(231)
 # plt.imshow(thresh_cow_25,cmap='gray')
@@ -229,44 +229,44 @@ def threshold(grey_img,delimiter):
 # plt.show()
         
 # threshold at 3 levels for grandview, plot results
-# thresh_grandview_25 = threshold(grey_grandview,0.25)
-# thresh_grandview_50 = threshold(grey_grandview,0.5)
-# thresh_grandview_75 = threshold(grey_grandview,0.75)
-# thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
-# thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
-# thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
+thresh_grandview_25 = threshold(grey_grandview,0.25)
+thresh_grandview_50 = threshold(grey_grandview,0.5)
+thresh_grandview_75 = threshold(grey_grandview,0.75)
+thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
+thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
+thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
 
 
-# plt.figure(figsize=(9, 4))
+plt.figure(figsize=(8, 5))
         
-# plt.subplot(231)
-# plt.imshow(thresh_grandview_25,cmap='gray')
-# plt.title('Cutoff at 0.25(max intensity)')
-# plt.axis('off')
+plt.subplot(231)
+plt.imshow(thresh_grandview_25,cmap='gray')
+plt.title('Cutoff at 0.25(max intensity)')
+plt.axis('off')
 
-# plt.subplot(232)
-# plt.imshow(thresh_grandview_50,cmap='gray')
-# plt.title('Cutoff at 0.5(max intensity)')
-# plt.axis('off')
+plt.subplot(232)
+plt.imshow(thresh_grandview_50,cmap='gray')
+plt.title('Cutoff at 0.5(max intensity)')
+plt.axis('off')
 
-# plt.subplot(233)
-# plt.imshow(thresh_grandview_75,cmap='gray')
-# plt.title('Cutoff at 0.75(max intensity)')
-# plt.axis('off')
+plt.subplot(233)
+plt.imshow(thresh_grandview_75,cmap='gray')
+plt.title('Cutoff at 0.75(max intensity)')
+plt.axis('off')
 
-# plt.subplot(234)
-# plt.bar(thresh_grand_25_h[:,0],thresh_grand_25_h[:,1],width=width,align='edge')
+plt.subplot(234)
+plt.bar(thresh_grand_25_h[:,0],thresh_grand_25_h[:,1],width=width,align='edge')
 
-# plt.subplot(235)
-# plt.bar(thresh_grand_50_h[:,0],thresh_grand_50_h[:,1],width=width,align='edge')
+plt.subplot(235)
+plt.bar(thresh_grand_50_h[:,0],thresh_grand_50_h[:,1],width=width,align='edge')
 
-# plt.subplot(236)
-# plt.bar(thresh_grand_75_h[:,0],thresh_grand_75_h[:,1],width=width,align='edge')
+plt.subplot(236)
+plt.bar(thresh_grand_75_h[:,0],thresh_grand_75_h[:,1],width=width,align='edge')
 
 
-# plt.tight_layout()
-# plt.savefig('grandview_thresh_diag', dpi=300)
-# plt.show()
+plt.tight_layout()
+plt.savefig('grandview_thresh_diag', dpi=300)
+plt.show()
 
 # threshold at 3 levels for ridge, plot results
 # thresh_ridge_25 = threshold(grey_ridge,0.25)
