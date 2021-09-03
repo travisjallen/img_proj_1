@@ -97,20 +97,20 @@ def grey2hist(img,num_bins,plot,title,filename):
     max_intensity = np.amax(img)
     
     # determine bin widths from max intensity and number of bins
-    hist = np.zeros((num_bins,2))
+    hist = np.zeros((num_bins+1,2))
     width = max_intensity/num_bins
     
     # loop through hist to fill first column with bin delimiters
-    for u in range(num_bins):
+    for u in range(num_bins+1):
         hist[u,0] = (u)*(width)
 
     # find number of counts in each bin
         # print(i)
     for j in range(num_rows):
         for k in range(num_cols):
-            for i in range(num_bins-1):
+            for i in range(num_bins):
                 # check intensity at (j,k), compare to bin limits
-                if (img[j,k] > hist[i,0]) and (img[j,k] < hist[i+1,0]):
+                if (img[j,k] >= hist[i,0]) and (img[j,k] <= hist[i+1,0]):
                     hist[i,1]+=1
     
     # stack all columns of img end-to-end to create 1D array
@@ -134,21 +134,21 @@ def grey2hist(img,num_bins,plot,title,filename):
         plt.title(title)
 
         plt.tight_layout()
-        plt.savefig(filename, dpi=150)
+        plt.savefig(filename, dpi=300)
         plt.show()
         
     
     # return the bins and counts of the histogram from our calculation
-    return hist
+    return hist, width
 
 # read greyscale image
 # gimg = io.imread("grey_cow.png", plugin='matplotlib')
 
 # call histogram function, specify plot = 1 to show histogram
-hist_cow = grey2hist(grey_cow,25,1,'Histogram of Grey Cow','grey_cow_hist.png')
-# hist_grand = grey2hist(grey_grandview,25,1,'Histogram of Cottonwood Gulch','grandview_hist.png')
-# hist_legacy = grey2hist(grey_legacy,25,1,'Histogram of Legacy Bridge','legacy_hist.png')
-# hist_ridge = grey2hist(grey_ridge,25,1,'Histogram of Ridgeline','ridge_hist.png')
+# hist_cow,width = grey2hist(grey_cow,25,1,'Histogram of Grey Cow','grey_cow_hist.png')
+# hist_grand,width = grey2hist(grey_grandview,25,1,'Histogram of Cottonwood Gulch','grandview_hist.png')
+# hist_legacy,width = grey2hist(grey_legacy,25,1,'Histogram of Legacy Bridge','legacy_hist.png')
+# hist_ridge,width = grey2hist(grey_ridge,25,1,'Histogram of Ridgeline','ridge_hist.png')
 
 # show histogram bin lower delimiters and counts
 # print(hist)
@@ -170,6 +170,7 @@ def threshold(grey_img,delimiter):
     image_size = grey_img.shape
     num_rows = image_size[0]
     num_cols = image_size[1]
+    new_img = np.zeros([num_rows,num_cols])
 
     # determine max intensity
     max_intensity = np.amax(grey_img)
@@ -182,15 +183,142 @@ def threshold(grey_img,delimiter):
         for k in range(num_cols):
             # check intensity at (j,k), compare to bin limits
             if (grey_img[j,k] < cutoff):
-                grey_img[j,k] = 0
+                new_img[j,k] = 0
             else:
-                grey_img[j,k] = 1
-    return grey_img
+                new_img[j,k] = 1
+    return new_img
 
-# thresh_cow = threshold(grey_cow,0.5)
-# thresh_grandview = threshold(grey_grandview,0.5)
-# thresh_ridge = threshold(grey_ridge,0.5)
-# thresh_legacy = threshold(grey_legacy,0.5)
+# threshold at 3 levels for cow, plot results, make histograms
+# thresh_cow_25 = threshold(grey_cow,0.25)
+# thresh_cow_50 = threshold(grey_cow,0.5)
+# thresh_cow_75 = threshold(grey_cow,0.75)
+# thresh_cow_25_h,width = grey2hist(thresh_cow_25,10,0,'na','na')
+# thresh_cow_50_h,width = grey2hist(thresh_cow_50,10,0,'na','na')
+# thresh_cow_75_h,width = grey2hist(thresh_cow_75,10,0,'na','na')
+
+# print(thresh_cow_25_h)
+
+# plt.figure(figsize=(18, 4))
+        
+# plt.subplot(231)
+# plt.imshow(thresh_cow_25,cmap='gray')
+# plt.title('Cutoff at 0.25(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(232)
+# plt.imshow(thresh_cow_50,cmap='gray')
+# plt.title('Cutoff at 0.5(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(233)
+# plt.imshow(thresh_cow_75,cmap='gray')
+# plt.title('Cutoff at 0.75(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(234)
+# plt.bar(thresh_cow_25_h[:,0],thresh_cow_25_h[:,1],width=width,align='edge')
+
+# plt.subplot(235)
+# plt.bar(thresh_cow_50_h[:,0],thresh_cow_50_h[:,1],width=width,align='edge')
+
+# plt.subplot(236)
+# plt.bar(thresh_cow_75_h[:,0],thresh_cow_75_h[:,1],width=width,align='edge')
+
+# plt.tight_layout()
+# plt.savefig('cow_thresh_diag', dpi=300)
+# plt.show()
+        
+# threshold at 3 levels for grandview, plot results
+# thresh_grandview_25 = threshold(grey_grandview,0.25)
+# thresh_grandview_50 = threshold(grey_grandview,0.5)
+# thresh_grandview_75 = threshold(grey_grandview,0.75)
+# thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
+# thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
+# thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
+
+
+# plt.figure(figsize=(9, 4))
+        
+# plt.subplot(231)
+# plt.imshow(thresh_grandview_25,cmap='gray')
+# plt.title('Cutoff at 0.25(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(232)
+# plt.imshow(thresh_grandview_50,cmap='gray')
+# plt.title('Cutoff at 0.5(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(233)
+# plt.imshow(thresh_grandview_75,cmap='gray')
+# plt.title('Cutoff at 0.75(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(234)
+# plt.bar(thresh_grand_25_h[:,0],thresh_grand_25_h[:,1],width=width,align='edge')
+
+# plt.subplot(235)
+# plt.bar(thresh_grand_50_h[:,0],thresh_grand_50_h[:,1],width=width,align='edge')
+
+# plt.subplot(236)
+# plt.bar(thresh_grand_75_h[:,0],thresh_grand_75_h[:,1],width=width,align='edge')
+
+
+# plt.tight_layout()
+# plt.savefig('grandview_thresh_diag', dpi=300)
+# plt.show()
+
+# threshold at 3 levels for ridge, plot results
+# thresh_ridge_25 = threshold(grey_ridge,0.25)
+# thresh_ridge_50 = threshold(grey_ridge,0.5)
+# thresh_ridge_75 = threshold(grey_ridge,0.75)
+
+# plt.figure(figsize=(9, 4))
+        
+# plt.subplot(131)
+# plt.imshow(thresh_ridge_25,cmap='gray')
+# plt.title('Cutoff at 0.25(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(132)
+# plt.imshow(thresh_ridge_50,cmap='gray')
+# plt.title('Cutoff at 0.5(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(133)
+# plt.imshow(thresh_ridge_75,cmap='gray')
+# plt.title('Cutoff at 0.75(max intensity)')
+# plt.axis('off')
+
+# plt.tight_layout()
+# plt.savefig('ridge_thresh_diag', dpi=300)
+# plt.show()
+
+# threshold at 3 levels for legacy, plot results
+# thresh_legacy_25 = threshold(grey_legacy,0.25)
+# thresh_legacy_50 = threshold(grey_legacy,0.5)
+# thresh_legacy_75 = threshold(grey_legacy,0.75)
+
+# plt.figure(figsize=(9, 4))
+        
+# plt.subplot(131)
+# plt.imshow(thresh_legacy_25,cmap='gray')
+# plt.title('Cutoff at 0.25(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(132)
+# plt.imshow(thresh_legacy_50,cmap='gray')
+# plt.title('Cutoff at 0.5(max intensity)')
+# plt.axis('off')
+
+# plt.subplot(133)
+# plt.imshow(thresh_legacy_75,cmap='gray')
+# plt.title('Cutoff at 0.75(max intensity)')
+# plt.axis('off')
+
+# plt.tight_layout()
+# plt.savefig('legacy_thresh_diag', dpi=300)
+# plt.show()
 
 # io.imsave("thresh_cow.png",thresh_cow)
 # io.imsave("thresh_grandview.png",thresh_grandview)
