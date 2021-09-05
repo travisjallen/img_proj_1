@@ -372,9 +372,9 @@ cc_cow_25 = measure.label(thresh_cow_25)
 cc_cow_50 = measure.label(thresh_cow_50)
 cc_cow_75 = measure.label(thresh_cow_75)
 
-ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=512)
-ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=512)
-ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=512)
+ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=1024)
+ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=1024)
+ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=1024)
 
 plt.figure(figsize=(8, 5))
 
@@ -412,9 +412,9 @@ cc_grand_25 = measure.label(thresh_grandview_25)
 cc_grand_50 = measure.label(thresh_grandview_50)
 cc_grand_75 = measure.label(thresh_grandview_75)
 
-ac_grand_25 = morphology.area_closing(thresh_grandview_25,area_threshold=512)
-ac_grand_50 = morphology.area_closing(thresh_grandview_50,area_threshold=512)
-ac_grand_75 = morphology.area_closing(thresh_grandview_75,area_threshold=512)
+ac_grand_25 = morphology.area_closing(thresh_grandview_25,area_threshold=1024)
+ac_grand_50 = morphology.area_closing(thresh_grandview_50,area_threshold=1024)
+ac_grand_75 = morphology.area_closing(thresh_grandview_75,area_threshold=1024)
 
 plt.figure(figsize=(8, 5))
 
@@ -452,9 +452,9 @@ cc_ridge_25 = measure.label(thresh_ridge_25)
 cc_ridge_50 = measure.label(thresh_ridge_50)
 cc_ridge_75 = measure.label(thresh_ridge_75)
 
-ac_ridge_25 = morphology.area_closing(thresh_ridge_25,area_threshold=512)
-ac_ridge_50 = morphology.area_closing(thresh_ridge_50,area_threshold=512)
-ac_ridge_75 = morphology.area_closing(thresh_ridge_75,area_threshold=512)
+ac_ridge_25 = morphology.area_closing(thresh_ridge_25,area_threshold=1024)
+ac_ridge_50 = morphology.area_closing(thresh_ridge_50,area_threshold=1024)
+ac_ridge_75 = morphology.area_closing(thresh_ridge_75,area_threshold=1024)
 
 plt.figure(figsize=(8, 5))
 
@@ -492,9 +492,9 @@ cc_legacy_25 = measure.label(thresh_legacy_25)
 cc_legacy_50 = measure.label(thresh_legacy_50)
 cc_legacy_75 = measure.label(thresh_legacy_75)
 
-ac_legacy_25 = morphology.area_closing(thresh_legacy_25,area_threshold=512)
-ac_legacy_50 = morphology.area_closing(thresh_legacy_50,area_threshold=512)
-ac_legacy_75 = morphology.area_closing(thresh_legacy_75,area_threshold=512)
+ac_legacy_25 = morphology.area_closing(thresh_legacy_25,area_threshold=1024)
+ac_legacy_50 = morphology.area_closing(thresh_legacy_50,area_threshold=1024)
+ac_legacy_75 = morphology.area_closing(thresh_legacy_75,area_threshold=1024)
 
 plt.figure(figsize=(8, 5))
 
