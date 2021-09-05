@@ -372,11 +372,11 @@ cc_cow_25 = measure.label(thresh_cow_25)
 cc_cow_50 = measure.label(thresh_cow_50)
 cc_cow_75 = measure.label(thresh_cow_75)
 
-ac_cow_25 = morphology.area_closing(thresh_cow_25)
-ac_cow_50 = morphology.area_closing(thresh_cow_50)
-ac_cow_75 = morphology.area_closing(thresh_cow_75)
+ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=512)
+ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=512)
+ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=512)
 
-plt.figure(figsize=(8, 4))
+plt.figure(figsize=(8, 5))
 
 plt.subplot(231)
 plt.imshow(cc_cow_25, cmap='nipy_spectral')
@@ -395,7 +395,7 @@ plt.imshow(ac_cow_25, cmap='gray')
 plt.axis('off')
 
 plt.subplot(235)
-plt.imshow(ac_cow_75, cmap='gray')
+plt.imshow(ac_cow_50, cmap='gray')
 plt.axis('off')
 
 plt.subplot(236)
@@ -412,11 +412,11 @@ cc_grand_25 = measure.label(thresh_grandview_25)
 cc_grand_50 = measure.label(thresh_grandview_50)
 cc_grand_75 = measure.label(thresh_grandview_75)
 
-ac_grand_25 = morphology.area_closing(thresh_grandview_25)
-ac_grand_50 = morphology.area_closing(thresh_grandview_50)
-ac_grand_75 = morphology.area_closing(thresh_grandview_75)
+ac_grand_25 = morphology.area_closing(thresh_grandview_25,area_threshold=512)
+ac_grand_50 = morphology.area_closing(thresh_grandview_50,area_threshold=512)
+ac_grand_75 = morphology.area_closing(thresh_grandview_75,area_threshold=512)
 
-plt.figure(figsize=(8, 4))
+plt.figure(figsize=(8, 5))
 
 plt.subplot(231)
 plt.imshow(cc_grand_25, cmap='nipy_spectral')
@@ -435,7 +435,7 @@ plt.imshow(ac_grand_25, cmap='gray')
 plt.axis('off')
 
 plt.subplot(235)
-plt.imshow(ac_grand_75, cmap='gray')
+plt.imshow(ac_grand_50, cmap='gray')
 plt.axis('off')
 
 plt.subplot(236)
@@ -452,13 +452,34 @@ cc_ridge_25 = measure.label(thresh_ridge_25)
 cc_ridge_50 = measure.label(thresh_ridge_50)
 cc_ridge_75 = measure.label(thresh_ridge_75)
 
-plt.figure(figsize=(8, 4))
-plt.subplot(131)
+ac_ridge_25 = morphology.area_closing(thresh_ridge_25,area_threshold=512)
+ac_ridge_50 = morphology.area_closing(thresh_ridge_50,area_threshold=512)
+ac_ridge_75 = morphology.area_closing(thresh_ridge_75,area_threshold=512)
+
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
 plt.imshow(cc_ridge_25, cmap='nipy_spectral')
-plt.subplot(132)
+plt.axis('off')
+
+plt.subplot(232)
 plt.imshow(cc_ridge_50, cmap='nipy_spectral')
-plt.subplot(133)
+plt.axis('off')
+
+plt.subplot(233)
 plt.imshow(cc_ridge_75, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_ridge_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_ridge_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_ridge_75, cmap='gray')
 plt.axis('off')
 
 plt.savefig('ridge_cc.png', dpi=300)
@@ -466,21 +487,172 @@ plt.savefig('ridge_cc.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
-# legacy
+# legacy #######################################################################
 cc_legacy_25 = measure.label(thresh_legacy_25)
 cc_legacy_50 = measure.label(thresh_legacy_50)
 cc_legacy_75 = measure.label(thresh_legacy_75)
 
-plt.figure(figsize=(8, 4))
-plt.subplot(131)
+ac_legacy_25 = morphology.area_closing(thresh_legacy_25,area_threshold=512)
+ac_legacy_50 = morphology.area_closing(thresh_legacy_50,area_threshold=512)
+ac_legacy_75 = morphology.area_closing(thresh_legacy_75,area_threshold=512)
+
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
 plt.imshow(cc_legacy_25, cmap='nipy_spectral')
-plt.subplot(132)
+plt.axis('off')
+
+plt.subplot(232)
 plt.imshow(cc_legacy_50, cmap='nipy_spectral')
-plt.subplot(133)
+plt.axis('off')
+
+plt.subplot(233)
 plt.imshow(cc_legacy_75, cmap='nipy_spectral')
 plt.axis('off')
 
+plt.subplot(234)
+plt.imshow(ac_legacy_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_legacy_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_legacy_75, cmap='gray')
+plt.axis('off')
+
 plt.savefig('legacy_cc.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# now show thresholded images above removed connected-component images:
+
+# cow ####################################################################
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
+plt.imshow(thresh_cow_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(thresh_cow_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(thresh_cow_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_cow_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_cow_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_cow_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('cow_cc_compare.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# grandview ##############################################################
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
+plt.imshow(thresh_grandview_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(thresh_grandview_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(thresh_grandview_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_grand_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_grand_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_grand_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('grand_cc_compare.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# ridge ##################################################################
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
+plt.imshow(thresh_ridge_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(thresh_ridge_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(thresh_ridge_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_ridge_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_ridge_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_ridge_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('ridge_cc_compare.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# legacy #################################################################
+plt.figure(figsize=(8, 5))
+
+plt.subplot(231)
+plt.imshow(thresh_legacy_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(thresh_legacy_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(thresh_legacy_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_legacy_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_legacy_50, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_legacy_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('legacy_cc_compare.png', dpi=300)
 
 plt.tight_layout()
 plt.show()
