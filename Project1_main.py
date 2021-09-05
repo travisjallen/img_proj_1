@@ -189,9 +189,9 @@ def threshold(grey_img,delimiter):
     return new_img
 
 # threshold at 3 levels for cow, plot results, make histograms
-# thresh_cow_25 = threshold(grey_cow,0.25)
-# thresh_cow_50 = threshold(grey_cow,0.5)
-# thresh_cow_75 = threshold(grey_cow,0.75)
+thresh_cow_25 = threshold(grey_cow,0.25)
+thresh_cow_50 = threshold(grey_cow,0.5)
+thresh_cow_75 = threshold(grey_cow,0.75)
 # thresh_cow_25_h,width = grey2hist(thresh_cow_25,10,0,'na','na')
 # thresh_cow_50_h,width = grey2hist(thresh_cow_50,10,0,'na','na')
 # thresh_cow_75_h,width = grey2hist(thresh_cow_75,10,0,'na','na')
@@ -228,93 +228,125 @@ def threshold(grey_img,delimiter):
 # plt.savefig('cow_thresh_diag', dpi=300)
 # plt.show()
         
-# threshold at 3 levels for grandview, plot results
+# threshold at 3 levels for grandview, plot results ###############################################
 thresh_grandview_25 = threshold(grey_grandview,0.25)
 thresh_grandview_50 = threshold(grey_grandview,0.5)
 thresh_grandview_75 = threshold(grey_grandview,0.75)
-thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
-thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
-thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
+# thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
+# thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
+# thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
 
 
-plt.figure(figsize=(8, 5))
+# plt.figure(figsize=(8, 5))
         
-plt.subplot(231)
-plt.imshow(thresh_grandview_25,cmap='gray')
-plt.title('Cutoff at 0.25(max intensity)')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(thresh_grandview_25,cmap='gray')
+# plt.title('Cutoff at 0.25(max intensity)')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(thresh_grandview_50,cmap='gray')
-plt.title('Cutoff at 0.5(max intensity)')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(thresh_grandview_50,cmap='gray')
+# plt.title('Cutoff at 0.5(max intensity)')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(thresh_grandview_75,cmap='gray')
-plt.title('Cutoff at 0.75(max intensity)')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(thresh_grandview_75,cmap='gray')
+# plt.title('Cutoff at 0.75(max intensity)')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.bar(thresh_grand_25_h[:,0],thresh_grand_25_h[:,1],width=width,align='edge')
+# plt.subplot(234)
+# plt.bar(thresh_grand_25_h[:,0],thresh_grand_25_h[:,1],width=width,align='edge')
 
-plt.subplot(235)
-plt.bar(thresh_grand_50_h[:,0],thresh_grand_50_h[:,1],width=width,align='edge')
+# plt.subplot(235)
+# plt.bar(thresh_grand_50_h[:,0],thresh_grand_50_h[:,1],width=width,align='edge')
 
-plt.subplot(236)
-plt.bar(thresh_grand_75_h[:,0],thresh_grand_75_h[:,1],width=width,align='edge')
+# plt.subplot(236)
+# plt.bar(thresh_grand_75_h[:,0],thresh_grand_75_h[:,1],width=width,align='edge')
 
 
-plt.tight_layout()
-plt.savefig('grandview_thresh_diag', dpi=300)
-plt.show()
+# plt.tight_layout()
+# plt.savefig('grandview_thresh_diag', dpi=300)
+# plt.show()
 
 # threshold at 3 levels for ridge, plot results
-# thresh_ridge_25 = threshold(grey_ridge,0.25)
-# thresh_ridge_50 = threshold(grey_ridge,0.5)
-# thresh_ridge_75 = threshold(grey_ridge,0.75)
+thresh_ridge_25 = threshold(grey_ridge,0.25)
+thresh_ridge_50 = threshold(grey_ridge,0.5)
+thresh_ridge_75 = threshold(grey_ridge,0.75)
+# print("here")
+# thresh_ridge_25_h,width = grey2hist(thresh_ridge_25,10,0,'na','na')
+# print("here")
+# thresh_ridge_50_h,width = grey2hist(thresh_ridge_50,10,0,'na','na')
+# print("here")
+# thresh_ridge_75_h,width = grey2hist(thresh_ridge_75,10,0,'na','na')
+# print("here")
 
-# plt.figure(figsize=(9, 4))
+# plt.figure(figsize=(8, 5))
         
-# plt.subplot(131)
+# plt.subplot(231)
 # plt.imshow(thresh_ridge_25,cmap='gray')
 # plt.title('Cutoff at 0.25(max intensity)')
 # plt.axis('off')
 
-# plt.subplot(132)
+# plt.subplot(232)
 # plt.imshow(thresh_ridge_50,cmap='gray')
 # plt.title('Cutoff at 0.5(max intensity)')
 # plt.axis('off')
 
-# plt.subplot(133)
+# plt.subplot(233)
 # plt.imshow(thresh_ridge_75,cmap='gray')
 # plt.title('Cutoff at 0.75(max intensity)')
 # plt.axis('off')
+
+# plt.subplot(234)
+# plt.bar(thresh_ridge_25_h[:,0],thresh_ridge_25_h[:,1],width=width,align='edge')
+
+# plt.subplot(235)
+# plt.bar(thresh_ridge_50_h[:,0],thresh_ridge_50_h[:,1],width=width,align='edge')
+
+# plt.subplot(236)
+# plt.bar(thresh_ridge_75_h[:,0],thresh_ridge_75_h[:,1],width=width,align='edge')
 
 # plt.tight_layout()
 # plt.savefig('ridge_thresh_diag', dpi=300)
 # plt.show()
 
 # threshold at 3 levels for legacy, plot results
-# thresh_legacy_25 = threshold(grey_legacy,0.25)
-# thresh_legacy_50 = threshold(grey_legacy,0.5)
-# thresh_legacy_75 = threshold(grey_legacy,0.75)
+thresh_legacy_25 = threshold(grey_legacy,0.25)
+thresh_legacy_50 = threshold(grey_legacy,0.5)
+thresh_legacy_75 = threshold(grey_legacy,0.75)
+# print("here")
+# thresh_legacy_25_h,width = grey2hist(thresh_legacy_25,10,0,'na','na')
+# print("here")
+# thresh_legacy_50_h,width = grey2hist(thresh_legacy_50,10,0,'na','na')
+# print("here")
+# thresh_legacy_75_h,width = grey2hist(thresh_legacy_75,10,0,'na','na')
+# print("here")
 
-# plt.figure(figsize=(9, 4))
-        
-# plt.subplot(131)
+# plt.figure(figsize=(8, 5))
+          
+# plt.subplot(231)
 # plt.imshow(thresh_legacy_25,cmap='gray')
 # plt.title('Cutoff at 0.25(max intensity)')
 # plt.axis('off')
 
-# plt.subplot(132)
+# plt.subplot(232)
 # plt.imshow(thresh_legacy_50,cmap='gray')
 # plt.title('Cutoff at 0.5(max intensity)')
 # plt.axis('off')
 
-# plt.subplot(133)
+# plt.subplot(233)
 # plt.imshow(thresh_legacy_75,cmap='gray')
 # plt.title('Cutoff at 0.75(max intensity)')
 # plt.axis('off')
+
+# plt.subplot(234)
+# plt.bar(thresh_legacy_25_h[:,0],thresh_legacy_25_h[:,1],width=width,align='edge')
+
+# plt.subplot(235)
+# plt.bar(thresh_legacy_50_h[:,0],thresh_legacy_50_h[:,1],width=width,align='edge')
+
+# plt.subplot(236)
+# plt.bar(thresh_legacy_75_h[:,0],thresh_legacy_75_h[:,1],width=width,align='edge')
 
 # plt.tight_layout()
 # plt.savefig('legacy_thresh_diag', dpi=300)
@@ -325,29 +357,133 @@ plt.show()
 # io.imsave("thresh_ridge.png",thresh_ridge)
 # io.imsave("thresh_legacy.png",thresh_legacy)
 
-# now perform connected component analysis
+# now perform connected component analysis ############################################
 
 # import necessary tools
 from skimage import measure
+from skimage import morphology
 
-# # give labels to each conected component in the thresholded image
-# connected_components = measure.label(thresh_grandview)
+# find each conected component in each thresholded image, show side by side.
+# remove connected components smaller than 64 connected pixels with 
+# morphology.area_closing()
 
-# # show results side by side
-# plt.figure(figsize=(6, 3.5))
+# cow #######################################################################
+cc_cow_25 = measure.label(thresh_cow_25)
+cc_cow_50 = measure.label(thresh_cow_50)
+cc_cow_75 = measure.label(thresh_cow_75)
 
-# # first show just the thresholded image
-# plt.subplot(121)
-# plt.imshow(grey_grandview, cmap='gray')
-# plt.axis('off')
+ac_cow_25 = morphology.area_closing(thresh_cow_25)
+ac_cow_50 = morphology.area_closing(thresh_cow_50)
+ac_cow_75 = morphology.area_closing(thresh_cow_75)
 
-# # then show the connected components
-# plt.subplot(122)
-# plt.imshow(connected_components, cmap='nipy_spectral')
-# plt.axis('off')
+plt.figure(figsize=(8, 4))
 
-# plt.tight_layout()
-# plt.show()
+plt.subplot(231)
+plt.imshow(cc_cow_25, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(cc_cow_50, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(cc_cow_75, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_cow_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_cow_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_cow_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('cow_cc.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# grandview #######################################################################
+cc_grand_25 = measure.label(thresh_grandview_25)
+cc_grand_50 = measure.label(thresh_grandview_50)
+cc_grand_75 = measure.label(thresh_grandview_75)
+
+ac_grand_25 = morphology.area_closing(thresh_grandview_25)
+ac_grand_50 = morphology.area_closing(thresh_grandview_50)
+ac_grand_75 = morphology.area_closing(thresh_grandview_75)
+
+plt.figure(figsize=(8, 4))
+
+plt.subplot(231)
+plt.imshow(cc_grand_25, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(232)
+plt.imshow(cc_grand_50, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(233)
+plt.imshow(cc_grand_75, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.subplot(234)
+plt.imshow(ac_grand_25, cmap='gray')
+plt.axis('off')
+
+plt.subplot(235)
+plt.imshow(ac_grand_75, cmap='gray')
+plt.axis('off')
+
+plt.subplot(236)
+plt.imshow(ac_grand_75, cmap='gray')
+plt.axis('off')
+
+plt.savefig('grand_cc.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# ridge #######################################################################
+cc_ridge_25 = measure.label(thresh_ridge_25)
+cc_ridge_50 = measure.label(thresh_ridge_50)
+cc_ridge_75 = measure.label(thresh_ridge_75)
+
+plt.figure(figsize=(8, 4))
+plt.subplot(131)
+plt.imshow(cc_ridge_25, cmap='nipy_spectral')
+plt.subplot(132)
+plt.imshow(cc_ridge_50, cmap='nipy_spectral')
+plt.subplot(133)
+plt.imshow(cc_ridge_75, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.savefig('ridge_cc.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
+
+# legacy
+cc_legacy_25 = measure.label(thresh_legacy_25)
+cc_legacy_50 = measure.label(thresh_legacy_50)
+cc_legacy_75 = measure.label(thresh_legacy_75)
+
+plt.figure(figsize=(8, 4))
+plt.subplot(131)
+plt.imshow(cc_legacy_25, cmap='nipy_spectral')
+plt.subplot(132)
+plt.imshow(cc_legacy_50, cmap='nipy_spectral')
+plt.subplot(133)
+plt.imshow(cc_legacy_75, cmap='nipy_spectral')
+plt.axis('off')
+
+plt.savefig('legacy_cc.png', dpi=300)
+
+plt.tight_layout()
+plt.show()
 
 #######################################################################
 # 4. Histogram equalization:  Perform histogram equalization on a 
