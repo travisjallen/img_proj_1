@@ -26,25 +26,25 @@ def color2grey(img):
     grey = [0.2126, 0.7152, 0.0722] # HD TV standard for RGB luminance
     return np.dot(img[...,:3],grey)
 
-# read image(s)
-cow = io.imread("cow.png")
-grandview = io.imread("grandview.jpg")
-ridge = io.imread("ridgeline.jpg")
-legacy = io.imread("legacy_bridge.jpg")
+# # read image(s)
+# cow = io.imread("cow.png")
+# grandview = io.imread("grandview.jpg")
+# ridge = io.imread("ridgeline.jpg")
+# legacy = io.imread("legacy_bridge.jpg")
 
-# transform image with user defined function
-grey_cow = color2grey(cow)
-grey_grandview = color2grey(grandview)
-grey_ridge = color2grey(ridge)
-grey_legacy = color2grey(legacy)
+# # transform image with user defined function
+# grey_cow = color2grey(cow)
+# grey_grandview = color2grey(grandview)
+# grey_ridge = color2grey(ridge)
+# grey_legacy = color2grey(legacy)
 
-# save images as .png
+# # save images as .png
 # io.imsave("grey_cow.png",grey_cow)
 # io.imsave("grey_grandview.png",grey_grandview)
 # io.imsave("grey_ridge.png",grey_ridge)
 # io.imsave("grey_legacy.png",grey_legacy)
 
-# Display the images to the user - note that values are float64 not uint8
+# # Display the images to the user - note that values are float64 not uint8
 # plt.figure(figsize=(12, 4))
 # plt.subplot(141)
 # plt.imshow(cow)
@@ -188,10 +188,10 @@ def threshold(grey_img,delimiter):
                 new_img[j,k] = 1
     return new_img
 
-# threshold at 3 levels for cow, plot results, make histograms
-thresh_cow_25 = threshold(grey_cow,0.25)
-thresh_cow_50 = threshold(grey_cow,0.5)
-thresh_cow_75 = threshold(grey_cow,0.75)
+# # threshold at 3 levels for cow, plot results, make histograms
+# thresh_cow_25 = threshold(grey_cow,0.25)
+# thresh_cow_50 = threshold(grey_cow,0.5)
+# thresh_cow_75 = threshold(grey_cow,0.75)
 # thresh_cow_25_h,width = grey2hist(thresh_cow_25,10,0,'na','na')
 # thresh_cow_50_h,width = grey2hist(thresh_cow_50,10,0,'na','na')
 # thresh_cow_75_h,width = grey2hist(thresh_cow_75,10,0,'na','na')
@@ -228,10 +228,10 @@ thresh_cow_75 = threshold(grey_cow,0.75)
 # plt.savefig('cow_thresh_diag', dpi=300)
 # plt.show()
         
-# threshold at 3 levels for grandview, plot results ###############################################
-thresh_grandview_25 = threshold(grey_grandview,0.25)
-thresh_grandview_50 = threshold(grey_grandview,0.5)
-thresh_grandview_75 = threshold(grey_grandview,0.75)
+# # threshold at 3 levels for grandview, plot results ###############################################
+# thresh_grandview_25 = threshold(grey_grandview,0.25)
+# thresh_grandview_50 = threshold(grey_grandview,0.5)
+# thresh_grandview_75 = threshold(grey_grandview,0.75)
 # thresh_grand_25_h,width = grey2hist(thresh_grandview_25,10,0,'na','na')
 # thresh_grand_50_h,width = grey2hist(thresh_grandview_50,10,0,'na','na')
 # thresh_grand_75_h,width = grey2hist(thresh_grandview_75,10,0,'na','na')
@@ -268,10 +268,10 @@ thresh_grandview_75 = threshold(grey_grandview,0.75)
 # plt.savefig('grandview_thresh_diag', dpi=300)
 # plt.show()
 
-# threshold at 3 levels for ridge, plot results
-thresh_ridge_25 = threshold(grey_ridge,0.25)
-thresh_ridge_50 = threshold(grey_ridge,0.5)
-thresh_ridge_75 = threshold(grey_ridge,0.75)
+# # threshold at 3 levels for ridge, plot results
+# thresh_ridge_25 = threshold(grey_ridge,0.25)
+# thresh_ridge_50 = threshold(grey_ridge,0.5)
+# thresh_ridge_75 = threshold(grey_ridge,0.75)
 # print("here")
 # thresh_ridge_25_h,width = grey2hist(thresh_ridge_25,10,0,'na','na')
 # print("here")
@@ -310,10 +310,10 @@ thresh_ridge_75 = threshold(grey_ridge,0.75)
 # plt.savefig('ridge_thresh_diag', dpi=300)
 # plt.show()
 
-# threshold at 3 levels for legacy, plot results
-thresh_legacy_25 = threshold(grey_legacy,0.25)
-thresh_legacy_50 = threshold(grey_legacy,0.5)
-thresh_legacy_75 = threshold(grey_legacy,0.75)
+# # threshold at 3 levels for legacy, plot results
+# thresh_legacy_25 = threshold(grey_legacy,0.25)
+# thresh_legacy_50 = threshold(grey_legacy,0.5)
+# thresh_legacy_75 = threshold(grey_legacy,0.75)
 # print("here")
 # thresh_legacy_25_h,width = grey2hist(thresh_legacy_25,10,0,'na','na')
 # print("here")
@@ -357,305 +357,305 @@ thresh_legacy_75 = threshold(grey_legacy,0.75)
 # io.imsave("thresh_ridge.png",thresh_ridge)
 # io.imsave("thresh_legacy.png",thresh_legacy)
 
-# now perform connected component analysis ############################################
+# # now perform connected component analysis ############################################
 
-# import necessary tools
-from skimage import measure
-from skimage import morphology
+# # import necessary tools
+# from skimage import measure
+# from skimage import morphology
 
-# find each conected component in each thresholded image, show side by side.
-# remove connected components smaller than 64 connected pixels with 
-# morphology.area_closing()
+# # find each conected component in each thresholded image, show side by side.
+# # remove connected components smaller than 64 connected pixels with 
+# # morphology.area_closing()
 
-# cow #######################################################################
-cc_cow_25 = measure.label(thresh_cow_25)
-cc_cow_50 = measure.label(thresh_cow_50)
-cc_cow_75 = measure.label(thresh_cow_75)
+# # cow #######################################################################
+# cc_cow_25 = measure.label(thresh_cow_25)
+# cc_cow_50 = measure.label(thresh_cow_50)
+# cc_cow_75 = measure.label(thresh_cow_75)
 
-ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=1024)
-ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=1024)
-ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=1024)
+# ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=1024)
+# ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=1024)
+# ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=1024)
 
-plt.figure(figsize=(8, 5))
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(cc_cow_25, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(cc_cow_25, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(cc_cow_50, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(cc_cow_50, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(cc_cow_75, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(cc_cow_75, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_cow_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_cow_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_cow_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_cow_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_cow_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_cow_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('cow_cc.png', dpi=300)
+# plt.savefig('cow_cc.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# grandview #######################################################################
-cc_grand_25 = measure.label(thresh_grandview_25)
-cc_grand_50 = measure.label(thresh_grandview_50)
-cc_grand_75 = measure.label(thresh_grandview_75)
+# # grandview #######################################################################
+# cc_grand_25 = measure.label(thresh_grandview_25)
+# cc_grand_50 = measure.label(thresh_grandview_50)
+# cc_grand_75 = measure.label(thresh_grandview_75)
 
-ac_grand_25 = morphology.area_closing(thresh_grandview_25,area_threshold=1024)
-ac_grand_50 = morphology.area_closing(thresh_grandview_50,area_threshold=1024)
-ac_grand_75 = morphology.area_closing(thresh_grandview_75,area_threshold=1024)
+# ac_grand_25 = morphology.area_closing(thresh_grandview_25,area_threshold=1024)
+# ac_grand_50 = morphology.area_closing(thresh_grandview_50,area_threshold=1024)
+# ac_grand_75 = morphology.area_closing(thresh_grandview_75,area_threshold=1024)
 
-plt.figure(figsize=(8, 5))
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(cc_grand_25, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(cc_grand_25, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(cc_grand_50, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(cc_grand_50, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(cc_grand_75, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(cc_grand_75, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_grand_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_grand_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_grand_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_grand_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_grand_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_grand_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('grand_cc.png', dpi=300)
+# plt.savefig('grand_cc.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# ridge #######################################################################
-cc_ridge_25 = measure.label(thresh_ridge_25)
-cc_ridge_50 = measure.label(thresh_ridge_50)
-cc_ridge_75 = measure.label(thresh_ridge_75)
+# # ridge #######################################################################
+# cc_ridge_25 = measure.label(thresh_ridge_25)
+# cc_ridge_50 = measure.label(thresh_ridge_50)
+# cc_ridge_75 = measure.label(thresh_ridge_75)
 
-ac_ridge_25 = morphology.area_closing(thresh_ridge_25,area_threshold=1024)
-ac_ridge_50 = morphology.area_closing(thresh_ridge_50,area_threshold=1024)
-ac_ridge_75 = morphology.area_closing(thresh_ridge_75,area_threshold=1024)
+# ac_ridge_25 = morphology.area_closing(thresh_ridge_25,area_threshold=1024)
+# ac_ridge_50 = morphology.area_closing(thresh_ridge_50,area_threshold=1024)
+# ac_ridge_75 = morphology.area_closing(thresh_ridge_75,area_threshold=1024)
 
-plt.figure(figsize=(8, 5))
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(cc_ridge_25, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(cc_ridge_25, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(cc_ridge_50, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(cc_ridge_50, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(cc_ridge_75, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(cc_ridge_75, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_ridge_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_ridge_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_ridge_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_ridge_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_ridge_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_ridge_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('ridge_cc.png', dpi=300)
+# plt.savefig('ridge_cc.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# legacy #######################################################################
-cc_legacy_25 = measure.label(thresh_legacy_25)
-cc_legacy_50 = measure.label(thresh_legacy_50)
-cc_legacy_75 = measure.label(thresh_legacy_75)
+# # legacy #######################################################################
+# cc_legacy_25 = measure.label(thresh_legacy_25)
+# cc_legacy_50 = measure.label(thresh_legacy_50)
+# cc_legacy_75 = measure.label(thresh_legacy_75)
 
-ac_legacy_25 = morphology.area_closing(thresh_legacy_25,area_threshold=1024)
-ac_legacy_50 = morphology.area_closing(thresh_legacy_50,area_threshold=1024)
-ac_legacy_75 = morphology.area_closing(thresh_legacy_75,area_threshold=1024)
+# ac_legacy_25 = morphology.area_closing(thresh_legacy_25,area_threshold=1024)
+# ac_legacy_50 = morphology.area_closing(thresh_legacy_50,area_threshold=1024)
+# ac_legacy_75 = morphology.area_closing(thresh_legacy_75,area_threshold=1024)
 
-plt.figure(figsize=(8, 5))
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(cc_legacy_25, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(cc_legacy_25, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(cc_legacy_50, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(cc_legacy_50, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(cc_legacy_75, cmap='nipy_spectral')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(cc_legacy_75, cmap='nipy_spectral')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_legacy_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_legacy_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_legacy_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_legacy_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_legacy_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_legacy_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('legacy_cc.png', dpi=300)
+# plt.savefig('legacy_cc.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# now show thresholded images above removed connected-component images:
+# # now show thresholded images above removed connected-component images:
 
-# cow ####################################################################
-plt.figure(figsize=(8, 5))
+# # cow ####################################################################
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(thresh_cow_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(thresh_cow_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(thresh_cow_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(thresh_cow_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(thresh_cow_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(thresh_cow_75, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_cow_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_cow_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_cow_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_cow_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_cow_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_cow_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('cow_cc_compare.png', dpi=300)
+# plt.savefig('cow_cc_compare.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# grandview ##############################################################
-plt.figure(figsize=(8, 5))
+# # grandview ##############################################################
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(thresh_grandview_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(thresh_grandview_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(thresh_grandview_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(thresh_grandview_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(thresh_grandview_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(thresh_grandview_75, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_grand_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_grand_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_grand_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_grand_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_grand_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_grand_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('grand_cc_compare.png', dpi=300)
+# plt.savefig('grand_cc_compare.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# ridge ##################################################################
-plt.figure(figsize=(8, 5))
+# # ridge ##################################################################
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(thresh_ridge_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(thresh_ridge_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(thresh_ridge_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(thresh_ridge_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(thresh_ridge_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(thresh_ridge_75, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_ridge_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_ridge_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_ridge_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_ridge_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_ridge_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_ridge_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('ridge_cc_compare.png', dpi=300)
+# plt.savefig('ridge_cc_compare.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
-# legacy #################################################################
-plt.figure(figsize=(8, 5))
+# # legacy #################################################################
+# plt.figure(figsize=(8, 5))
 
-plt.subplot(231)
-plt.imshow(thresh_legacy_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(231)
+# plt.imshow(thresh_legacy_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(232)
-plt.imshow(thresh_legacy_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(232)
+# plt.imshow(thresh_legacy_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(233)
-plt.imshow(thresh_legacy_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(233)
+# plt.imshow(thresh_legacy_75, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(234)
-plt.imshow(ac_legacy_25, cmap='gray')
-plt.axis('off')
+# plt.subplot(234)
+# plt.imshow(ac_legacy_25, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(235)
-plt.imshow(ac_legacy_50, cmap='gray')
-plt.axis('off')
+# plt.subplot(235)
+# plt.imshow(ac_legacy_50, cmap='gray')
+# plt.axis('off')
 
-plt.subplot(236)
-plt.imshow(ac_legacy_75, cmap='gray')
-plt.axis('off')
+# plt.subplot(236)
+# plt.imshow(ac_legacy_75, cmap='gray')
+# plt.axis('off')
 
-plt.savefig('legacy_cc_compare.png', dpi=300)
+# plt.savefig('legacy_cc_compare.png', dpi=300)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
 #######################################################################
 # 4. Histogram equalization:  Perform histogram equalization on a 
@@ -666,29 +666,109 @@ plt.show()
 # (vary) those parameters, and report results on selection of 
 # images of different types (photos, medical, etc.).
 
-# # read the original image
-# img = io.imread("cow.png")
+# read the grey images
+grey_cow = io.imread('grey_cow.png')
+grey_grandview = io.imread('grey_grandview.png')
+grey_ridge = io.imread('grey_ridge.png')
+grey_legacy = io.imread('grey_legacy.png')
 
-# # transform image with user defined function
-# grey_img = color2grey(img)
+# build histogram with grey images
+cow_hist,width_o = grey2hist(grey_cow,20,0,'na','na')
+grand_hist,width_o = grey2hist(grey_grandview,20,0,'na','na')
+ridge_hist,width_o = grey2hist(grey_ridge,20,0,'na','na')
+legacy_hist,width_o = grey2hist(grey_legacy,20,0,'na','na')
 
-# # save the new image
-# io.imsave("grey_cow.png",grey_img)
+print('here')
 
-# # read the new image
-# gimg = io.imread("grey_cow.png")
+# Histogram equalization - use skimage exposure.equalize_hist()
+he_cow = exposure.equalize_hist(grey_cow)
+he_grand = exposure.equalize_hist(grey_grandview)
+he_ridge = exposure.equalize_hist(grey_ridge)
+he_legacy = exposure.equalize_hist(grey_legacy)
 
-# # build histogram with new grey image
-# g_hist = grey2hist(gimg,15,1,'grey_cow_hist.png')
+# make histogram of histogram equalized image
+he_cow_hist,width = grey2hist(he_cow,20,0,'na','na')
+he_grand_hist,width = grey2hist(he_grand,20,0,'na','na')
+he_ridge_hist,width = grey2hist(he_ridge,20,0,'na','na')
+he_legacy_hist,width = grey2hist(he_legacy,20,0,'na','na')
 
-# # now we have all of the pieces necessary to perform histogram equalization
+# plot results
 
-# # perform histogram equalization using skimage exposure.equalize_hist()
-# HE_gimg = exposure.equalize_hist(gimg)
+# cow
+plt.figure(figsize=(8,8))
 
-# # save the histogram equalized image
-# io.imsave("HE_grey_cow.png",HE_gimg)
+plt.subplot(221)
+plt.imshow(grey_cow, cmap='gray')
 
-# # make histogram of histogram equalized image
-# HE_g_hist = grey2hist(HE_gimg,15,1,'HE_grey_cow_hist.png')
+plt.subplot(222)
+plt.bar(cow_hist[:,0],cow_hist[:,1],width=width_o,align='edge')
+
+plt.subplot(223)
+plt.imshow(he_cow, cmap='gray')
+
+plt.subplot(224)
+plt.bar(he_cow_hist[:,0],he_cow_hist[:,1],width=width,align='edge')
+
+plt.savefig('cow_he.png', dpi=300)
+plt.tight_layout()
+plt.show()
+
+# cow
+plt.figure(figsize=(8,8))
+
+plt.subplot(221)
+plt.imshow(grey_grandview, cmap='gray')
+
+plt.subplot(222)
+plt.bar(grand_hist[:,0],grand_hist[:,1],width=width_o,align='edge')
+
+plt.subplot(223)
+plt.imshow(he_grand, cmap='gray')
+
+plt.subplot(224)
+plt.bar(he_grand_hist[:,0],he_grand_hist[:,1],width=width,align='edge')
+
+plt.savefig('grand_he.png', dpi=300)
+plt.tight_layout()
+plt.show()
+
+# cow
+plt.figure(figsize=(8,8))
+
+plt.subplot(221)
+plt.imshow(grey_ridge, cmap='gray')
+
+plt.subplot(222)
+plt.bar(ridge_hist[:,0],ridge_hist[:,1],width=width_o,align='edge')
+
+plt.subplot(223)
+plt.imshow(he_ridge, cmap='gray')
+
+plt.subplot(224)
+plt.bar(he_ridge_hist[:,0],he_ridge_hist[:,1],width=width,align='edge')
+
+plt.savefig('ridge_he.png', dpi=300)
+plt.tight_layout()
+plt.show()
+
+# legacy
+plt.figure(figsize=(8,8))
+
+plt.subplot(221)
+plt.imshow(grey_legacy, cmap='gray')
+
+plt.subplot(222)
+plt.bar(legacy_hist[:,0],legacy_hist[:,1],width=width_o,align='edge')
+
+plt.subplot(223)
+plt.imshow(he_legacy, cmap='gray')
+
+plt.subplot(224)
+plt.bar(he_legacy_hist[:,0],he_legacy_hist[:,1],width=width,align='edge')
+
+plt.savefig('legacy_he.png', dpi=300)
+plt.tight_layout()
+plt.show()
+
+
 
