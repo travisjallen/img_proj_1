@@ -673,24 +673,114 @@ grey_ridge = io.imread('grey_ridge.png')
 grey_legacy = io.imread('grey_legacy.png')
 
 # build histogram with grey images
-cow_hist,width_o = grey2hist(grey_cow,20,0,'na','na')
-grand_hist,width_o = grey2hist(grey_grandview,20,0,'na','na')
-ridge_hist,width_o = grey2hist(grey_ridge,20,0,'na','na')
-legacy_hist,width_o = grey2hist(grey_legacy,20,0,'na','na')
+cow_hist,width_o = grey2hist(grey_cow,15,0,'na','na')
+grand_hist,width_o = grey2hist(grey_grandview,15,0,'na','na')
+ridge_hist,width_o = grey2hist(grey_ridge,15,0,'na','na')
+legacy_hist,width_o = grey2hist(grey_legacy,15,0,'na','na')
 
 print('here')
 
-# Histogram equalization - use skimage exposure.equalize_hist()
-he_cow = exposure.equalize_hist(grey_cow)
-he_grand = exposure.equalize_hist(grey_grandview)
-he_ridge = exposure.equalize_hist(grey_ridge)
-he_legacy = exposure.equalize_hist(grey_legacy)
+# # Histogram equalization - use skimage exposure.equalize_hist()
+# he_cow = exposure.equalize_hist(grey_cow)
+# he_grand = exposure.equalize_hist(grey_grandview)
+# he_ridge = exposure.equalize_hist(grey_ridge)
+# he_legacy = exposure.equalize_hist(grey_legacy)
+
+# # make histogram of histogram equalized image
+# he_cow_hist,width = grey2hist(he_cow,15,0,'na','na')
+# he_grand_hist,width = grey2hist(he_grand,15,0,'na','na')
+# he_ridge_hist,width = grey2hist(he_ridge,15,0,'na','na')
+# he_legacy_hist,width = grey2hist(he_legacy,15,0,'na','na')
+
+# # plot results
+
+# # cow
+# plt.figure(figsize=(8,8))
+
+# plt.subplot(221)
+# plt.imshow(grey_cow, cmap='gray')
+
+# plt.subplot(222)
+# plt.bar(cow_hist[:,0],cow_hist[:,1],width=width_o,align='edge')
+
+# plt.subplot(223)
+# plt.imshow(he_cow, cmap='gray')
+
+# plt.subplot(224)
+# plt.bar(he_cow_hist[:,0],he_cow_hist[:,1],width=width,align='edge')
+
+# plt.savefig('cow_he.png', dpi=300)
+# plt.tight_layout()
+# plt.show()
+
+# # grandview
+# plt.figure(figsize=(8,8))
+
+# plt.subplot(221)
+# plt.imshow(grey_grandview, cmap='gray')
+
+# plt.subplot(222)
+# plt.bar(grand_hist[:,0],grand_hist[:,1],width=width_o,align='edge')
+
+# plt.subplot(223)
+# plt.imshow(he_grand, cmap='gray')
+
+# plt.subplot(224)
+# plt.bar(he_grand_hist[:,0],he_grand_hist[:,1],width=width,align='edge')
+
+# plt.savefig('grand_he.png', dpi=300)
+# plt.tight_layout()
+# plt.show()
+
+# # ridge
+# plt.figure(figsize=(8,8))
+
+# plt.subplot(221)
+# plt.imshow(grey_ridge, cmap='gray')
+
+# plt.subplot(222)
+# plt.bar(ridge_hist[:,0],ridge_hist[:,1],width=width_o,align='edge')
+
+# plt.subplot(223)
+# plt.imshow(he_ridge, cmap='gray')
+
+# plt.subplot(224)
+# plt.bar(he_ridge_hist[:,0],he_ridge_hist[:,1],width=width,align='edge')
+
+# plt.savefig('ridge_he.png', dpi=300)
+# plt.tight_layout()
+# plt.show()
+
+# # legacy
+# plt.figure(figsize=(8,8))
+
+# plt.subplot(221)
+# plt.imshow(grey_legacy, cmap='gray')
+
+# plt.subplot(222)
+# plt.bar(legacy_hist[:,0],legacy_hist[:,1],width=width_o,align='edge')
+
+# plt.subplot(223)
+# plt.imshow(he_legacy, cmap='gray')
+
+# plt.subplot(224)
+# plt.bar(he_legacy_hist[:,0],he_legacy_hist[:,1],width=width,align='edge')
+
+# plt.savefig('legacy_he.png', dpi=300)
+# plt.tight_layout()
+# plt.show()
+
+# Now perform automated histogram equalization with exposure.equalize_adapthist() function 
+ahe_cow = exposure.equalize_adapthist(grey_cow, clip_limit=0.03)
+ahe_grand = exposure.equalize_adapthist(grey_grandview, clip_limit=0.03)
+ahe_ridge = exposure.equalize_adapthist(grey_ridge,clip_limit=0.03)
+ahe_legacy = exposure.equalize_adapthist(grey_legacy,clip_limit=0.03)
 
 # make histogram of histogram equalized image
-he_cow_hist,width = grey2hist(he_cow,20,0,'na','na')
-he_grand_hist,width = grey2hist(he_grand,20,0,'na','na')
-he_ridge_hist,width = grey2hist(he_ridge,20,0,'na','na')
-he_legacy_hist,width = grey2hist(he_legacy,20,0,'na','na')
+ahe_cow_hist,width = grey2hist(ahe_cow,15,0,'na','na')
+ahe_grand_hist,width = grey2hist(ahe_grand,15,0,'na','na')
+ahe_ridge_hist,width = grey2hist(ahe_ridge,15,0,'na','na')
+ahe_legacy_hist,width = grey2hist(ahe_legacy,15,0,'na','na')
 
 # plot results
 
@@ -704,16 +794,16 @@ plt.subplot(222)
 plt.bar(cow_hist[:,0],cow_hist[:,1],width=width_o,align='edge')
 
 plt.subplot(223)
-plt.imshow(he_cow, cmap='gray')
+plt.imshow(ahe_cow, cmap='gray')
 
 plt.subplot(224)
-plt.bar(he_cow_hist[:,0],he_cow_hist[:,1],width=width,align='edge')
+plt.bar(ahe_cow_hist[:,0],ahe_cow_hist[:,1],width=width,align='edge')
 
-plt.savefig('cow_he.png', dpi=300)
+plt.savefig('cow_ahe.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
-# cow
+# grandview
 plt.figure(figsize=(8,8))
 
 plt.subplot(221)
@@ -723,16 +813,16 @@ plt.subplot(222)
 plt.bar(grand_hist[:,0],grand_hist[:,1],width=width_o,align='edge')
 
 plt.subplot(223)
-plt.imshow(he_grand, cmap='gray')
+plt.imshow(ahe_grand, cmap='gray')
 
 plt.subplot(224)
-plt.bar(he_grand_hist[:,0],he_grand_hist[:,1],width=width,align='edge')
+plt.bar(ahe_grand_hist[:,0],ahe_grand_hist[:,1],width=width,align='edge')
 
-plt.savefig('grand_he.png', dpi=300)
+plt.savefig('grand_ahe.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
-# cow
+# ridge
 plt.figure(figsize=(8,8))
 
 plt.subplot(221)
@@ -742,12 +832,12 @@ plt.subplot(222)
 plt.bar(ridge_hist[:,0],ridge_hist[:,1],width=width_o,align='edge')
 
 plt.subplot(223)
-plt.imshow(he_ridge, cmap='gray')
+plt.imshow(ahe_ridge, cmap='gray')
 
 plt.subplot(224)
-plt.bar(he_ridge_hist[:,0],he_ridge_hist[:,1],width=width,align='edge')
+plt.bar(ahe_ridge_hist[:,0],ahe_ridge_hist[:,1],width=width,align='edge')
 
-plt.savefig('ridge_he.png', dpi=300)
+plt.savefig('ridge_ahe.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
@@ -761,14 +851,11 @@ plt.subplot(222)
 plt.bar(legacy_hist[:,0],legacy_hist[:,1],width=width_o,align='edge')
 
 plt.subplot(223)
-plt.imshow(he_legacy, cmap='gray')
+plt.imshow(ahe_legacy, cmap='gray')
 
 plt.subplot(224)
-plt.bar(he_legacy_hist[:,0],he_legacy_hist[:,1],width=width,align='edge')
+plt.bar(ahe_legacy_hist[:,0],ahe_legacy_hist[:,1],width=width,align='edge')
 
-plt.savefig('legacy_he.png', dpi=300)
+plt.savefig('legacy_ahe.png', dpi=300)
 plt.tight_layout()
 plt.show()
-
-
-
