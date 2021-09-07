@@ -27,13 +27,13 @@ def color2grey(img):
     return np.dot(img[...,:3],grey)
 
 # # read image(s)
-# cow = io.imread("cow.png")
+cow = io.imread("cow.png")
 # grandview = io.imread("grandview.jpg")
 # ridge = io.imread("ridgeline.jpg")
 # legacy = io.imread("legacy_bridge.jpg")
 
 # # transform image with user defined function
-# grey_cow = color2grey(cow)
+grey_cow = color2grey(cow)
 # grey_grandview = color2grey(grandview)
 # grey_ridge = color2grey(ridge)
 # grey_legacy = color2grey(legacy)
@@ -79,7 +79,10 @@ def color2grey(img):
 # what part of the histogram).  Thresholding (below) 
 # can help with this. 
 
+
 # define function to make a histogram from a greyscale image
+from numba import jit
+@jit(nopython=True)
 def grey2hist(img,num_bins,plot,title,filename):
     # inputs are:
     # img: greyscale image to make histogram of
@@ -119,23 +122,23 @@ def grey2hist(img,num_bins,plot,title,filename):
     vals = img.reshape(num_cols*num_rows,1)
 
     # now print and show a histogram of the image if asked for
-    if plot == 1:
-        # make figure
-        plt.figure(figsize=(6, 4))
+    # if plot == 1:
+        # # make figure
+        # plt.figure(figsize=(6, 4))
         
-        # plot image next to histogram
-        plt.subplot(121)
-        plt.imshow(img,cmap='gray')
-        plt.title('Greyscale Image')
-        plt.axis('off')
+        # # plot image next to histogram
+        # plt.subplot(121)
+        # plt.imshow(img,cmap='gray')
+        # plt.title('Greyscale Image')
+        # plt.axis('off')
 
-        plt.subplot(122)
-        plt.bar(hist[:,0],hist[:,1],width=width,align='edge')
-        plt.title(title)
+        # plt.subplot(122)
+        # plt.bar(hist[:,0],hist[:,1],width=width,align='edge')
+        # plt.title(title)
 
-        plt.tight_layout()
-        plt.savefig(filename, dpi=300)
-        plt.show()
+        # plt.tight_layout()
+        # plt.savefig(filename, dpi=300)
+        # plt.show()
         
     
     # return the bins and counts of the histogram from our calculation
@@ -189,12 +192,12 @@ def threshold(grey_img,delimiter):
     return new_img
 
 # # threshold at 3 levels for cow, plot results, make histograms
-# thresh_cow_25 = threshold(grey_cow,0.25)
-# thresh_cow_50 = threshold(grey_cow,0.5)
-# thresh_cow_75 = threshold(grey_cow,0.75)
-# thresh_cow_25_h,width = grey2hist(thresh_cow_25,10,0,'na','na')
-# thresh_cow_50_h,width = grey2hist(thresh_cow_50,10,0,'na','na')
-# thresh_cow_75_h,width = grey2hist(thresh_cow_75,10,0,'na','na')
+thresh_cow_25 = threshold(grey_cow,0.25)
+thresh_cow_50 = threshold(grey_cow,0.5)
+thresh_cow_75 = threshold(grey_cow,0.75)
+thresh_cow_25_h,width = grey2hist(thresh_cow_25,10,0,'na','na')
+thresh_cow_50_h,width = grey2hist(thresh_cow_50,10,0,'na','na')
+thresh_cow_75_h,width = grey2hist(thresh_cow_75,10,0,'na','na')
 
 # print(thresh_cow_25_h)
 
@@ -360,52 +363,52 @@ def threshold(grey_img,delimiter):
 # # now perform connected component analysis ############################################
 
 # # import necessary tools
-# from skimage import measure
-# from skimage import morphology
+from skimage import measure
+from skimage import morphology
 
 # # find each conected component in each thresholded image, show side by side.
 # # remove connected components smaller than 64 connected pixels with 
 # # morphology.area_closing()
 
-# # cow #######################################################################
-# cc_cow_25 = measure.label(thresh_cow_25)
-# cc_cow_50 = measure.label(thresh_cow_50)
-# cc_cow_75 = measure.label(thresh_cow_75)
+# cow #######################################################################
+cc_cow_25 = measure.label(thresh_cow_25)
+cc_cow_50 = measure.label(thresh_cow_50)
+cc_cow_75 = measure.label(thresh_cow_75)
 
-# ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=1024)
-# ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=1024)
-# ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=1024)
+ac_cow_25 = morphology.area_closing(thresh_cow_25,area_threshold=1024)
+ac_cow_50 = morphology.area_closing(thresh_cow_50,area_threshold=1024)
+ac_cow_75 = morphology.area_closing(thresh_cow_75,area_threshold=1024)
 
-# plt.figure(figsize=(8, 5))
+plt.figure(figsize=(8, 5))
 
-# plt.subplot(231)
-# plt.imshow(cc_cow_25, cmap='nipy_spectral')
-# plt.axis('off')
+plt.subplot(231)
+plt.imshow(cc_cow_25, cmap='nipy_spectral')
+plt.axis('off')
 
-# plt.subplot(232)
-# plt.imshow(cc_cow_50, cmap='nipy_spectral')
-# plt.axis('off')
+plt.subplot(232)
+plt.imshow(cc_cow_50, cmap='nipy_spectral')
+plt.axis('off')
 
-# plt.subplot(233)
-# plt.imshow(cc_cow_75, cmap='nipy_spectral')
-# plt.axis('off')
+plt.subplot(233)
+plt.imshow(cc_cow_75, cmap='nipy_spectral')
+plt.axis('off')
 
-# plt.subplot(234)
-# plt.imshow(ac_cow_25, cmap='gray')
-# plt.axis('off')
+plt.subplot(234)
+plt.imshow(ac_cow_25, cmap='gray')
+plt.axis('off')
 
-# plt.subplot(235)
-# plt.imshow(ac_cow_50, cmap='gray')
-# plt.axis('off')
+plt.subplot(235)
+plt.imshow(ac_cow_50, cmap='gray')
+plt.axis('off')
 
-# plt.subplot(236)
-# plt.imshow(ac_cow_75, cmap='gray')
-# plt.axis('off')
+plt.subplot(236)
+plt.imshow(ac_cow_75, cmap='gray')
+plt.axis('off')
 
-# plt.savefig('cow_cc.png', dpi=300)
+plt.savefig('cow_cc.png', dpi=300)
 
-# plt.tight_layout()
-# plt.show()
+plt.tight_layout()
+plt.show()
 
 # # grandview #######################################################################
 # cc_grand_25 = measure.label(thresh_grandview_25)
@@ -678,8 +681,6 @@ grand_hist,width_o = grey2hist(grey_grandview,15,0,'na','na')
 ridge_hist,width_o = grey2hist(grey_ridge,15,0,'na','na')
 legacy_hist,width_o = grey2hist(grey_legacy,15,0,'na','na')
 
-print('here')
-
 # # Histogram equalization - use skimage exposure.equalize_hist()
 # he_cow = exposure.equalize_hist(grey_cow)
 # he_grand = exposure.equalize_hist(grey_grandview)
@@ -771,10 +772,10 @@ print('here')
 # plt.show()
 
 # Now perform automated histogram equalization with exposure.equalize_adapthist() function 
-ahe_cow = exposure.equalize_adapthist(grey_cow, clip_limit=0.03)
-ahe_grand = exposure.equalize_adapthist(grey_grandview, clip_limit=0.03)
-ahe_ridge = exposure.equalize_adapthist(grey_ridge,clip_limit=0.03)
-ahe_legacy = exposure.equalize_adapthist(grey_legacy,clip_limit=0.03)
+ahe_cow = exposure.equalize_adapthist(grey_cow, clip_limit=0.005)
+ahe_grand = exposure.equalize_adapthist(grey_grandview, clip_limit=0.005)
+ahe_ridge = exposure.equalize_adapthist(grey_ridge,clip_limit=0.005)
+ahe_legacy = exposure.equalize_adapthist(grey_legacy,clip_limit=0.005)
 
 # make histogram of histogram equalized image
 ahe_cow_hist,width = grey2hist(ahe_cow,15,0,'na','na')
@@ -799,7 +800,7 @@ plt.imshow(ahe_cow, cmap='gray')
 plt.subplot(224)
 plt.bar(ahe_cow_hist[:,0],ahe_cow_hist[:,1],width=width,align='edge')
 
-plt.savefig('cow_ahe.png', dpi=300)
+plt.savefig('cow_ahe_005.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
@@ -818,7 +819,7 @@ plt.imshow(ahe_grand, cmap='gray')
 plt.subplot(224)
 plt.bar(ahe_grand_hist[:,0],ahe_grand_hist[:,1],width=width,align='edge')
 
-plt.savefig('grand_ahe.png', dpi=300)
+plt.savefig('grand_ahe_005.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
@@ -837,7 +838,7 @@ plt.imshow(ahe_ridge, cmap='gray')
 plt.subplot(224)
 plt.bar(ahe_ridge_hist[:,0],ahe_ridge_hist[:,1],width=width,align='edge')
 
-plt.savefig('ridge_ahe.png', dpi=300)
+plt.savefig('ridge_ahe_005.png', dpi=300)
 plt.tight_layout()
 plt.show()
 
@@ -856,6 +857,6 @@ plt.imshow(ahe_legacy, cmap='gray')
 plt.subplot(224)
 plt.bar(ahe_legacy_hist[:,0],ahe_legacy_hist[:,1],width=width,align='edge')
 
-plt.savefig('legacy_ahe.png', dpi=300)
+plt.savefig('legacy_ahe_005.png', dpi=300)
 plt.tight_layout()
 plt.show()
