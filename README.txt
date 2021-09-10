@@ -1,5 +1,5 @@
 Travis Allen
-u1056595
+
 CS 6640 Project 1
 
 README.txt is this file.
